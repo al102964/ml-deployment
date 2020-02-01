@@ -6,5 +6,5 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-ENTRYPOINT mlflow server --backend-store-uri ./mlruns --default-artifact-root ./artifacts --host 0.0.0.0
+ENTRYPOINT sleep 25 && mlflow server --backend-store-uri postgresql://mlflow_user:mlflow@postgres/mlflow_db --default-artifact-root ftp://test:test@ftpd/home/test/ --host 0.0.0.0
 

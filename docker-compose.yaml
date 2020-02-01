@@ -1,13 +1,27 @@
 version: '3'
 services:
   mlflow:    
-    image: "mlflow-server:latest"
+    build: ./mlflow-server
     ports:
       - "5000:5000"
+    depends_on:
+      - "ftpd"
+      - "postgres"
+  ftpd:
+    image: "mauler/simple-ftp-server"
+    environment:
+      - FTP_USER=test
+      - FTP_PASS=test
+    ports:
+      - "21:21"        
+  postgres:
+    build: ./postgres-mlflow
+    ports:
+      - "5432:5432"
   jupyter:
     environment:
       - JUPYTER_ENABLE_LAB=yes  
-    image: "jupyter-mlflow:latest"
+    build: ./jupyter-mlflow
     ports:
       - "8888:8888"
   portainer:    
@@ -17,3 +31,4 @@ services:
     ports: 
       - "9000:9000"
       - "8000:8000"
+

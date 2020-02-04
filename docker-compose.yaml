@@ -7,6 +7,9 @@ services:
     depends_on:
       - "ftpd"
       - "postgres"
+    volumes: 
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
   ftpd:
     image: "mauler/simple-ftp-server"
     environment:
